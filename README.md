@@ -23,4 +23,4 @@ The app has separate Titanic and Heart Disease forms. The Heart Disease model is
 
 ## Deployment
 
-The public GitHub repository is `haseebahmad60/ML-Assignment-2`. In Streamlit Community Cloud, select branch `main` and `app.py` as the app file. Add the verified app URL to the top of both notebooks after deployment.
+The public GitHub repository is `haseebahmad60/ML-Assignment-2`. In Streamlit Community Cloud, select branch `main` and `app.py` as the app file. Live app: [https://sp24-bse-149-ml-assignment-2.streamlit.app/](https://sp24-bse-149-ml-assignment-2.streamlit.app/). The verified link is included at the top of both notebooks.
