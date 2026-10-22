@@ -1,0 +1,8 @@
+Titanic teaching sample
+Source: https://github.com/haqnawaz99/ml-teaching-notebooks/tree/main/1%20-%20Titanic%20Survival%20Prediction
+File: sample-data.csv (100-row classroom sample)
+
+UCI Heart Disease dataset (Cleveland processed file; 303 rows, 14 columns)
+Source: https://archive.ics.uci.edu/dataset/45/heart+disease
+Citation: Janosi, A., Steinbrunn, W., Pfisterer, M., & Detrano, R. (1989). Heart Disease. UCI Machine Learning Repository. https://doi.org/10.24432/C52P4X
+License: CC BY 4.0

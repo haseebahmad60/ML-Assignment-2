@@ -1,0 +1,8 @@
+numpy>=1.26
+pandas>=2.1
+scikit-learn==1.9.1
+matplotlib>=3.8
+streamlit==1.66.1
+notebook>=7.0
+nbformat>=5.9
+nbconvert>=7.0
