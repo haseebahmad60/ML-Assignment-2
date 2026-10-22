@@ -1,6 +1,5 @@
 import streamlit as st
-import pandas as pd
-from model_utils import ensure_models
+from model_utils import ensure_models, predict_bundle
 
 st.set_page_config(page_title="End-to-End ML Prediction Systems", page_icon="🧪", layout="centered")
 st.title("End-to-End Machine Learning Systems")
@@ -18,22 +17,6 @@ except Exception as e:
     st.stop()
 
 
-def predict(bundle, values):
-    features = bundle["feature_columns"]
-    row = pd.DataFrame([{c: values[c] for c in features}], columns=features)
-    for c in bundle.get("categorical_features", []):
-        enc = bundle["feature_encoders"][c]
-        if c in ("sex", "cp"):
-            row[c] = enc.transform(row[c].astype(int).astype(str))
-        else:
-            row[c] = enc.transform(row[c].astype(str))
-    for c in features:
-        if c not in bundle.get("categorical_features", []):
-            row[c] = pd.to_numeric(row[c], errors="raise")
-    predicted_code = bundle["model"].predict(row[features])[0]
-    return bundle["target_encoder"].inverse_transform([predicted_code])[0]
-
-
 tab_titanic, tab_heart = st.tabs(["Titanic Survival", "Heart Disease"])
 with tab_titanic:
     st.subheader("Titanic Passenger Survival Prediction")
@@ -46,7 +29,7 @@ with tab_titanic:
         submit_titanic = st.form_submit_button("Predict survival")
     if submit_titanic:
         try:
-            result = predict(titanic_bundle, {"PClass": pclass, "Gender": gender, "Sibling": sibling, "Embarked": embarked})
+            result = predict_bundle(titanic_bundle, {"PClass": pclass, "Gender": gender, "Sibling": sibling, "Embarked": embarked})
             if result == "Yes":
                 st.success("Model prediction: survived")
             else:
@@ -70,7 +53,7 @@ with tab_heart:
                   "cp": {"Typical angina": 1, "Atypical angina": 2, "Non-anginal pain": 3, "Asymptomatic": 4}[cp_label],
                   "thalach": float(thalach)}
         try:
-            result = predict(heart_bundle, values)
+            result = predict_bundle(heart_bundle, values)
             if result == "Disease present":
                 st.error("Model output: disease present class")
             else:

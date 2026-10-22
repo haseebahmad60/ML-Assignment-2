@@ -100,3 +100,24 @@ def ensure_models():
     else:
         heart = train_heart_bundle()
     return titanic, heart
+
+
+def predict_bundle(bundle, values):
+    """Encode one app input row and return its human-readable label."""
+    features = bundle["feature_columns"]
+    if set(values) != set(features):
+        raise ValueError(f"Expected exactly these input fields: {features}")
+
+    row = pd.DataFrame([{column: values[column] for column in features}], columns=features)
+    for column in bundle.get("categorical_features", []):
+        encoder = bundle["feature_encoders"][column]
+        if column in ("sex", "cp"):
+            row[column] = encoder.transform(row[column].astype(int).astype(str))
+        else:
+            row[column] = encoder.transform(row[column].astype(str))
+    for column in features:
+        if column not in bundle.get("categorical_features", []):
+            row[column] = pd.to_numeric(row[column], errors="raise")
+
+    predicted_code = bundle["model"].predict(row[features])[0]
+    return bundle["target_encoder"].inverse_transform([predicted_code])[0]

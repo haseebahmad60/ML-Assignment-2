@@ -8,7 +8,7 @@ This submission contains two executed Jupyter notebooks and a combined Streamlit
 - `notebooks/Heart_Disease_Prediction.ipynb` — same stages using exactly four input features (`age`, `sex`, `cp`, `thalach`), with a stratified 80/20 split. Original target `num=0` is mapped to **No disease**; `num=1,2,3,4` are mapped to **Disease present**.
 - `data/sample-data.csv`, `data/heart_disease.csv` — both source datasets.
 - `titanic_model.pkl`, `heart_disease_model.pkl` — trained model bundles with encoders and feature order, saved by the notebooks and loaded by the app.
-- `app.py`, `model_utils.py`, `requirements.txt` — combined prediction app, model-loading helpers, and dependencies.
+- `app.py`, `model_utils.py`, `requirements.txt`, `tests/` — combined app, shared prediction validation, dependencies, and prediction smoke tests.
 
 ## Run locally
 
@@ -19,7 +19,7 @@ py -m pip install -r requirements.txt
 py -m notebook
 ```
 
-Open each notebook and choose **Kernel → Restart Kernel and Run All Cells**. The saved outputs in this submission are from completed execution. Then launch the app from this folder:
+Open each notebook and choose **Kernel → Restart Kernel and Run All Cells**. The saved outputs in this submission are from completed execution. Run the saved-model interface checks with `py -m pytest -q`. Then launch the app from this folder:
 
 ```powershell
 py -m streamlit run app.py
