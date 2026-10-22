@@ -1,6 +1,5 @@
 from pathlib import Path
 import pickle
-import urllib.request
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
@@ -19,9 +18,7 @@ def _save_bundle(bundle, path):
 def train_titanic_bundle():
     data_path = DATA_DIR / "sample-data.csv"
     if not data_path.exists():
-        url = "https://raw.githubusercontent.com/haqnawaz99/ml-teaching-notebooks/main/1%20-%20Titanic%20Survival%20Prediction/sample-data.csv"
-        df = pd.read_csv(url)
-        df.to_csv(data_path, index=False)
+        raise FileNotFoundError(f"Expected the included dataset at {data_path}")
     df = pd.read_csv(data_path)
     features = ["PClass", "Gender", "Sibling", "Embarked"]
     df = df[features + ["Survived"]].dropna().copy()
